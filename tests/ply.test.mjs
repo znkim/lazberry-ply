@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {centerAndMapZUp,createGridBoxGeometry,parsePly,sampleVertices} from '../src/ply.js';
+import {formatBBoxDimensions,VIEW_ANGLES} from '../src/view-utils.js';
+const ascii=`ply\nformat ascii 1.0\nelement vertex 4\nproperty float x\nproperty float y\nproperty float z\nproperty uchar red\nproperty uchar green\nproperty uchar blue\nelement face 1\nproperty list uchar int vertex_indices\nend_header\n0 0 0 255 0 0\n2 0 0 0 255 0\n2 3 0 0 0 255\n0 3 0 255 255 255\n4 0 1 2 3\n`;
+const model=parsePly(new TextEncoder().encode(ascii).buffer);
+assert.deepEqual(model.min,[0,0,0]);assert.deepEqual(model.max,[2,3,0]);assert.equal(model.vertexCount,4);assert.equal(model.faceCount,1);assert.equal(model.triangleCount,2);assert.deepEqual([...model.indices],[0,1,2,0,2,3]);assert.equal(sampleVertices(model,2).count,2);
+const grid=createGridBoxGeometry(12,6);assert.equal(grid.count,600);assert.equal(grid.positions.length,1800);assert.equal(grid.colors.length,1800);assert.equal(Math.max(...grid.positions),6);assert.equal(Math.min(...grid.positions),-6);
+const zUp=centerAndMapZUp(new Float32Array([0,0,0,2,4,6]),[0,0,0],[2,4,6]);[-1/6,-.5,1/3,1/6,.5,-1/3].forEach((expected,index)=>assert.ok(Math.abs(zUp[index]-expected)<1e-6));
+assert.deepEqual(VIEW_ANGLES['-X'],[Math.PI/2,0]);assert.deepEqual(VIEW_ANGLES['+Z'],[0,Math.PI/2]);assert.ok(VIEW_ANGLES.ISO[1]>0);
+assert.equal(formatBBoxDimensions([-6.94178,-2,0],[8.18296,3,1]),'X: 15.1247 (-6.94178 : 8.18296)\nY: 5.00000 (-2.00000 : 3.00000)\nZ: 1.00000 (0.00000 : 1.00000)');
+console.log('PLY parser tests passed');

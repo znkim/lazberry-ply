@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A private, client-side PLY point cloud and mesh viewer">
+  <meta name="theme-color" content="#091018">
+  <title>Lazberry PLY Viewer</title>
+  <link rel="stylesheet" href="./src/styles/viewer.css">
+  <link rel="stylesheet" href="./src/styles/axis-overrides.css">
+  <link rel="stylesheet" href="./src/styles/overlays.css">
+</head>
+<body>
+  <main id="app">
+    <canvas id="viewport" aria-label="3D PLY viewport"></canvas>
+    <div id="drop-zone" role="button" tabindex="0" aria-label="Open a PLY file">
+      <strong>Drop a PLY file here</strong><span>or click to choose a file</span>
+      <small>ASCII or binary little-endian · processed locally</small>
+    </div>
+    <input id="file-input" type="file" accept=".ply" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="mark">L</span><div><b>Lazberry PLY</b><small id="file-name">No file open</small></div></div>
+      <button id="theme" class="icon-button" aria-label="Toggle background" title="Toggle light/dark background"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z"/><circle cx="12" cy="12" r="9"/></svg></button>
+    </header>
+    <aside class="panel">
+      <section><h2>Geometry</h2><dl class="stats">
+        <div><dt>Type</dt><dd id="kind">—</dd></div><div><dt>Vertices</dt><dd id="vertices">—</dd></div>
+        <div><dt>Triangles</dt><dd id="triangles">—</dd></div><div><dt>Displayed</dt><dd id="displayed">—</dd></div>
+        <div><dt>File size</dt><dd id="file-size">—</dd></div>
+      </dl></section>
+      <section><h2>Display</h2>
+        <label>Point size <output id="point-size-value">2 px</output><input id="point-size" type="range" min="1" max="12" value="2" step="0.5"></label>
+        <label>Point limit <output id="point-limit-value">1,000,000</output><input id="point-limit" type="range" min="10000" max="5000000" value="1000000" step="10000"></label>
+        <label class="toggle"><input id="show-mesh" type="checkbox" checked><span>Mesh faces</span></label>
+        <label class="toggle"><input id="show-points" type="checkbox" checked><span>Vertices</span></label>
+        <label class="toggle"><input id="show-grid" type="checkbox" checked><span>Spatial grid box</span></label>
+        <label class="toggle"><input id="show-bbox" type="checkbox" checked><span>Bounding box</span></label>
+      </section>
+      <section><h2>Global BBox</h2><pre id="global-bbox">Min  —
+Max  —
+Size —</pre></section>
+      <section><h2>Local BBox <span class="hint" title="Coordinates relative to the center of the global bounding box">?</span></h2><pre id="local-bbox">Min  —
+Max  —
+Size —</pre></section>
+    </aside>
+    <div class="axis-widget" aria-label="World axes">
+      <canvas id="axis" width="112" height="112" tabindex="0" aria-label="Click an axis to face that direction"></canvas><span>WORLD</span>
+      <div class="axis-actions">
+        <button data-view="ISO" class="active" title="Isometric view" aria-label="Isometric view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v9m8-4.5-8 4.5-8-4.5M12 12v9"/></svg><span>ISO</span></button>
+        <button id="fit-view" title="Fit to view" aria-label="Fit to view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M8 21H3v-5m13 5h5v-5"/></svg><span>FIT</span></button>
+      </div>
+    </div>
+    <div id="drop-overlay" class="screen-overlay" aria-hidden="true"><div class="overlay-card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5h14v-5"/></svg><strong>Drop to open PLY</strong><span>The current model will be replaced</span></div></div>
+    <div id="loading-overlay" class="screen-overlay" role="dialog" aria-modal="true" aria-labelledby="loading-title" hidden><div class="overlay-card loading-card"><strong id="loading-title">Opening PLY</strong><span id="loading-stage">Reading file</span><div class="progress-track"><div id="loading-progress" class="progress-value"></div></div><output id="loading-percent">0%</output><button id="cancel-load">Cancel <kbd>Esc</kbd></button></div></div>
+    <footer><span><kbd>Left drag</kbd> rotate</span><span><kbd>Right drag</kbd> pan</span><span><kbd>Wheel</kbd> zoom</span><span><kbd>W A S D</kbd> top · bottom · left · right</span><span><kbd>Q E</kbd> front · back</span><span id="status">Open a PLY file to begin</span></footer>
+  </main>
+  <script type="module" src="./src/viewer.js"></script>
+</body>
+</html>

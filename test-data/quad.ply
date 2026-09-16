@@ -1,0 +1,18 @@
+ply
+format ascii 1.0
+comment Lazberry PLY smoke-test fixture
+element vertex 4
+property float x
+property float y
+property float z
+property uchar red
+property uchar green
+property uchar blue
+element face 1
+property list uchar int vertex_indices
+end_header
+-1 0 -1 255 80 80
+1 0 -1 80 255 80
+1 0 1 80 80 255
+-1 0 1 255 220 80
+4 0 1 2 3

@@ -1,0 +1,5 @@
+.panel { width: 310px; }
+
+@media (max-width: 760px) {
+  .panel { width: 240px; }
+}
