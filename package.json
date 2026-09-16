@@ -1,6 +1,6 @@
 {
   "name": "lazberry-ply",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Private, client-side PLY viewer for the web",
@@ -9,6 +9,7 @@
     "test": "node tests/ply.test.mjs",
     "build": "vite build",
     "build:pages": "vite build --base=/lazberry-ply/ --outDir docs",
+    "test:pages": "node tests/pages-build.test.mjs",
     "preview": "vite preview --base=/lazberry-ply/ --outDir docs --host 127.0.0.1"
   },
   "devDependencies": { "vite": "7.3.6" }

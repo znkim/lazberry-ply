@@ -29,10 +29,16 @@
         <div><dt>File size</dt><dd id="file-size">—</dd></div>
       </dl></section>
       <section><h2>Display</h2>
-        <label>Point size <output id="point-size-value">2 px</output><input id="point-size" type="range" min="1" max="12" value="2" step="0.5"></label>
-        <label>Point limit <output id="point-limit-value">1,000,000</output><input id="point-limit" type="range" min="10000" max="5000000" value="1000000" step="10000"></label>
-        <label class="toggle"><input id="show-mesh" type="checkbox" checked><span>Mesh faces</span></label>
-        <label class="toggle"><input id="show-points" type="checkbox" checked><span>Vertices</span></label>
+        <div id="point-controls" class="geometry-controls">
+          <label>Point size <output id="point-size-value">2 px</output><input id="point-size" type="range" min="1" max="12" value="2" step="0.5"></label>
+          <label>Point limit <output id="point-limit-value">1,000,000</output><input id="point-limit" type="range" min="10000" max="5000000" value="1000000" step="10000"></label>
+        </div>
+        <div id="mesh-controls" class="geometry-controls" hidden>
+          <label class="toggle"><input id="show-mesh" type="checkbox" checked><span>Mesh faces</span></label>
+          <label>Mesh opacity <output id="mesh-opacity-value">72%</output><input id="mesh-opacity" type="range" min="0" max="100" value="72" step="1"></label>
+          <label class="toggle"><input id="show-wireframe" type="checkbox"><span>Wireframe</span></label>
+          <label class="toggle"><input id="show-points" type="checkbox" checked><span>Vertices</span></label>
+        </div>
         <label class="toggle"><input id="show-grid" type="checkbox" checked><span>Spatial grid box</span></label>
         <label class="toggle"><input id="show-bbox" type="checkbox" checked><span>Bounding box</span></label>
       </section>
@@ -52,7 +58,7 @@ Size —</pre></section>
     </div>
     <div id="drop-overlay" class="screen-overlay" aria-hidden="true"><div class="overlay-card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5h14v-5"/></svg><strong>Drop to open PLY</strong><span>The current model will be replaced</span></div></div>
     <div id="loading-overlay" class="screen-overlay" role="dialog" aria-modal="true" aria-labelledby="loading-title" hidden><div class="overlay-card loading-card"><strong id="loading-title">Opening PLY</strong><span id="loading-stage">Reading file</span><div class="progress-track"><div id="loading-progress" class="progress-value"></div></div><output id="loading-percent">0%</output><button id="cancel-load">Cancel <kbd>Esc</kbd></button></div></div>
-    <footer><span><kbd>Left drag</kbd> rotate</span><span><kbd>Right drag</kbd> pan</span><span><kbd>Wheel</kbd> zoom</span><span><kbd>W A S D</kbd> top · bottom · left · right</span><span><kbd>Q E</kbd> front · back</span><span id="status">Open a PLY file to begin</span></footer>
+    <footer><span><kbd>Left drag</kbd> rotate</span><span><kbd>Right drag</kbd> pan</span><span><kbd>Wheel</kbd> zoom</span><span><kbd>W A S D</kbd> top · bottom · left · right</span><span><kbd>Q E</kbd> front · back</span><span id="status">Open a PLY file to begin</span><span id="app-version" aria-label="Application version"></span></footer>
   </main>
   <script type="module" src="./src/viewer.js"></script>
 </body>
