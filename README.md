@@ -8,6 +8,7 @@ Files are read locally with the browser File API and are never uploaded to a ser
 
 - Open ASCII and binary little-endian PLY files by dropping or choosing a file.
 - Render point clouds and triangle meshes with configurable point sampling.
+- Use geometry-specific controls for point size, mesh opacity, wireframe, and vertices.
 - Inspect global and center-relative bounding boxes and geometry statistics.
 - Toggle mesh faces, vertices, the spatial grid, and the bounding box.
 - Use mouse navigation, axis shortcuts, preset views, and light/dark backgrounds.

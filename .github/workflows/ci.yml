@@ -31,5 +31,8 @@ jobs:
       - name: Build GitHub Pages site
         run: npm run build:pages
 
+      - name: Test GitHub Pages output
+        run: npm run test:pages
+
       - name: Verify committed Pages output
         run: git diff --exit-code -- docs
