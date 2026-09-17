@@ -16,6 +16,7 @@ const mainSource = await readFile(new URL(mainAsset, assetsDirectory), 'utf8');
 assert.match(mainSource, new RegExp(`/lazberry-ply/assets/${workerAsset.replace('.', '\\.')}`));
 assert.ok(mainSource.includes(`v${pkg.version}`), 'Pages build must display the package version');
 assert.match(pageSource,/id="trackball-rotation"/);
+assert.match(pageSource,/id="projection-mode"[^>]+aria-pressed="false"/);
 assert.match(pageSource,/id="show-edge"[^>]+checked/);
 assert.match(pageSource,/id="mesh-opacity"[^>]+value="100"/);
 assert.doesNotMatch(pageSource,/id="orientation-panel"/);
