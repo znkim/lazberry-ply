@@ -1,10 +1,4 @@
-export function interpolateMatrices(from,to,t){
-  const amount=Math.max(0,Math.min(1,t)),out=new Float32Array(16);
-  for(let index=0;index<16;index++)out[index]=from[index]+(to[index]-from[index])*amount;
-  return out;
-}
-
-export function createPreviewCubeGeometry(size=.45){
+export function createPreviewCubeGeometry(size=.225){
   const faces=[
     [[size,0,0],[255,64,64],[[size,-size,-size],[size,size,-size],[size,size,size],[size,-size,size]]],
     [[-size,0,0],[0,220,220],[[-size,-size,size],[-size,size,size],[-size,size,-size],[-size,-size,-size]]],
