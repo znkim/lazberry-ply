@@ -4,7 +4,7 @@
 
 <h1 align="center">Lazberry PLY</h1>
 
-<p align="center">A fast, private PLY point-cloud and mesh viewer that runs entirely in your browser.</p>
+<p align="center">A fast, private PLY, LAS, and LAZ point-cloud viewer that runs entirely in your browser.</p>
 
 <p align="center">
   <a href="https://znkim.github.io/lazberry-ply/"><strong>Open Lazberry PLY →</strong></a>
@@ -14,7 +14,7 @@ Files stay on your device and are never uploaded to a server.
 
 ## Features
 
-- ASCII and binary little-endian PLY support
+- ASCII/binary PLY plus LAS 1.0–1.4 and LAZ support
 - Point-cloud and triangle-mesh rendering
 - Perspective, isometric, turntable, and trackball navigation
 - Mesh faces, wireframe, vertices, screen-space edges, grid, and bounding-box controls

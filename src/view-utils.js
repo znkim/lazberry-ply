@@ -8,6 +8,8 @@ export const VIEW_ANGLES={
   ISO:[-.65,.45]
 };
 
+export const VIEW_KEYS={a:'-X',d:'+X',w:'+Y',s:'-Y',q:'-Z',e:'+Z'};
+
 const number=value=>Number(value).toPrecision(6);
 
 export function formatBBoxDimensions(min,max){return['X','Y','Z'].map((axis,index)=>`${axis}: ${number(max[index]-min[index])} (${number(min[index])} : ${number(max[index])})`).join('\n')}
