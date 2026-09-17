@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#091018">
   <link rel="icon" href="/lazberry-ply/favicon.svg" type="image/svg+xml">
   <title>Lazberry PLY Viewer</title>
-  <script type="module" crossorigin src="/lazberry-ply/assets/index-DTnWZ6Pn.js"></script>
-  <link rel="stylesheet" crossorigin href="/lazberry-ply/assets/index-DFVHT_8z.css">
+  <script type="module" crossorigin src="/lazberry-ply/assets/index-C0M9iXzl.js"></script>
+  <link rel="stylesheet" crossorigin href="/lazberry-ply/assets/index-CGOZGW90.css">
 </head>
 <body>
   <main id="app">
@@ -41,6 +41,19 @@
         </div>
         <label class="toggle"><input id="show-grid" type="checkbox" checked><span>Spatial grid box</span></label>
         <label class="toggle"><input id="show-bbox" type="checkbox" checked><span>Bounding box</span></label>
+      </section>
+      <section id="orientation-panel" hidden><h2>Orientation</h2>
+        <label>Source up axis
+          <select id="up-axis">
+            <option value="+Z">+Z</option><option value="-Z">-Z</option>
+            <option value="+Y">+Y</option><option value="-Y">-Y</option>
+            <option value="+X">+X</option><option value="-X">-X</option>
+          </select>
+        </label>
+        <label>Rotate X <output id="rotate-x-value">0°</output><input id="rotate-x" type="range" min="-180" max="180" value="0" step="1"></label>
+        <label>Rotate Y <output id="rotate-y-value">0°</output><input id="rotate-y" type="range" min="-180" max="180" value="0" step="1"></label>
+        <label>Rotate Z <output id="rotate-z-value">0°</output><input id="rotate-z" type="range" min="-180" max="180" value="0" step="1"></label>
+        <button id="reset-orientation" type="button">Reset orientation</button>
       </section>
       <section><h2>Global BBox</h2><pre id="global-bbox">Min  —
 Max  —
