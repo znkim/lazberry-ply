@@ -1,20 +1,24 @@
-# Lazberry PLY
+<p align="center">
+  <img src="public/favicon.svg" width="96" height="96" alt="Lazberry PLY logo">
+</p>
 
-A fast, private, browser-based viewer for PLY point clouds and triangle meshes.
+<h1 align="center">Lazberry PLY</h1>
 
-Files are read locally with the browser File API and are never uploaded to a server.
+<p align="center">A fast, private PLY point-cloud and mesh viewer that runs entirely in your browser.</p>
+
+<p align="center">
+  <a href="https://znkim.github.io/lazberry-ply/"><strong>Open Lazberry PLY →</strong></a>
+</p>
+
+Files stay on your device and are never uploaded to a server.
 
 ## Features
 
-- Open ASCII and binary little-endian PLY files by dropping or choosing a file.
-- Render point clouds and triangle meshes with configurable point sampling.
-- Use geometry-specific controls for point size, mesh opacity, wireframe, and vertices.
-- Toggle trackball rotation for roll-capable, free-axis inspection.
-- Ease into axis presets with 300 ms camera transitions and inspect opaque meshes with depth/normal edge enhancement.
-- Start with an auto-orbiting RGB/CMY Z-up cube before opening a file.
-- Inspect global and center-relative bounding boxes and geometry statistics.
-- Toggle mesh faces, vertices, the spatial grid, and the bounding box.
-- Use mouse navigation, axis shortcuts, preset views, and light/dark backgrounds.
+- ASCII and binary little-endian PLY support
+- Point-cloud and triangle-mesh rendering
+- Perspective, isometric, turntable, and trackball navigation
+- Mesh faces, wireframe, vertices, screen-space edges, grid, and bounding-box controls
+- Smooth axis shortcuts, drag-and-drop loading, and light/dark backgrounds
 
 ## Development
 
@@ -23,10 +27,6 @@ npm install
 npm run dev
 ```
 
-Run `npm test` for parser tests. Run `npm run build:pages` to generate the GitHub Pages site in `docs/`.
+Run `npm test` for tests and `npm run build:pages` to regenerate the GitHub Pages site in `docs/`.
 
-Contributions are managed through Issues and pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development and versioning workflow.
-
-## License
-
-MIT
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the issue and pull-request workflow.
