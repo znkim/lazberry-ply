@@ -24,4 +24,17 @@ assert.equal(parseLasHeader(makeLas({format:7,compressed:true})).compressed,true
 assert.throws(()=>parseLas(makeLas({format:7,compressed:true})),/LAZ worker/);
 assert.throws(()=>parseLas(makeLas().slice(0,-1)),/truncated/);
 const invalid=makeLas();new Uint8Array(invalid)[0]=0;assert.throws(()=>parseLasHeader(invalid),/signature/);
+function withProjectionRecord(buffer,id,data,extended=false){
+  const source=new Uint8Array(buffer),sourceView=new DataView(buffer),headerSize=sourceView.getUint16(94,true),pointOffset=sourceView.getUint32(96,true),headerLength=extended?60:54;
+  const output=new Uint8Array(buffer.byteLength+headerLength+data.length),view=new DataView(output.buffer);
+  if(extended){output.set(source);const at=output.length-headerLength-data.length;view.setBigUint64(235,BigInt(at),true);view.setUint32(243,1,true);output.set(new TextEncoder().encode('LASF_Projection'),at+2);view.setUint16(at+18,id,true);view.setBigUint64(at+20,BigInt(data.length),true);output.set(data,at+60)}
+  else{output.set(source.subarray(0,pointOffset));const at=headerSize;view.setUint32(96,pointOffset+headerLength+data.length,true);view.setUint32(100,1,true);output.set(new TextEncoder().encode('LASF_Projection'),at+2);view.setUint16(at+18,id,true);view.setUint16(at+20,data.length,true);output.set(data,at+54);output.set(source.subarray(pointOffset),pointOffset+headerLength+data.length)}
+  return output.buffer;
+}
+const geoKeys=new Uint8Array(16),geoView=new DataView(geoKeys.buffer);geoView.setUint16(6,1,true);geoView.setUint16(8,3072,true);geoView.setUint16(12,1,true);geoView.setUint16(14,32652,true);
+assert.equal(parseLas(withProjectionRecord(makeLas(),34735,geoKeys)).las.crs.label,'EPSG:32652');
+const wkt=new TextEncoder().encode('PROJCRS["Korea 2000 / Unified CS",ID["EPSG",5179]]\0');
+const withWkt=withProjectionRecord(makeLas({minor:4}),2112,wkt,true);
+assert.equal(parseLasHeader(withWkt).crs.label,'EPSG:5179 · Korea 2000 / Unified CS');
+assert.equal(parseLas(withWkt).las.crs.wkt,new TextDecoder().decode(wkt).slice(0,-1));
 console.log('LAS parser tests passed');
