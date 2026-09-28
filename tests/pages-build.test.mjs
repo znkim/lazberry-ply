@@ -24,6 +24,7 @@ assert.doesNotMatch(pageSource,/id="show-edge"[^>]+checked/);
 assert.match(pageSource,/id="mesh-opacity"[^>]+value="100"/);
 assert.doesNotMatch(pageSource,/id="orientation-panel"/);
 assert.match(pageSource,/accept="\.ply,\.las,\.laz"/);
+assert.match(pageSource,/Drop a PLY, LAS, or LAZ file to open/);
 assert.ok(assets.some(name=>name.endsWith('.wasm')),'GitHub Pages build must emit the LAZ decoder WASM asset');
 await access(new URL('../docs/favicon.svg', import.meta.url));
 

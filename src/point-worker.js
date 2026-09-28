@@ -32,7 +32,7 @@ self.onmessage=async event=>{
     if(extension==='ply')model=parsePly(buffer);
     else if(extension==='las'||extension==='laz')model=parseLasHeader(buffer).compressed?await parseLaz(buffer):parseLas(buffer);
     else throw new Error(`Unsupported point-cloud format: ${extension||'unknown'}`);
-    const transfers=extension==='ply'?[model.positions.buffer,model.colors.buffer,model.indices.buffer]:transferableLasBuffers(model);
+    const transfers=extension==='ply'?[model.positions.buffer,model.colors.buffer,model.indices.buffer,...(model.normals?[model.normals.buffer]:[])]:transferableLasBuffers(model);
     self.postMessage({model},transfers);
   }catch(error){self.postMessage({error:error instanceof Error?error.message:String(error)})}
 };

@@ -1,3 +1,5 @@
+import{readLasCrs}from'./las-crs.js';
+
 const MIN_RECORD_LENGTH=[20,28,26,34,57,63,30,36,38,59,67];
 const COLOR_OFFSETS={2:20,3:28,5:28,7:30,8:30,10:30};
 const GPS_TIME_OFFSETS={1:20,3:20,4:20,5:20,6:22,7:22,8:22,9:22,10:22};
@@ -35,7 +37,9 @@ export function parseLasHeader(buffer){
   if(scale.some(value=>!Number.isFinite(value)||value===0)||offset.some(value=>!Number.isFinite(value)))throw new Error('Invalid LAS scale or offset values.');
   const min=[view.getFloat64(187,true),view.getFloat64(203,true),view.getFloat64(219,true)];
   const max=[view.getFloat64(179,true),view.getFloat64(195,true),view.getFloat64(211,true)];
-  return{version:`${versionMajor}.${versionMinor}`,versionMajor,versionMinor,headerSize,pointDataOffset,pointFormat,pointRecordLength,pointCount,compressed,scale,offset,min,max};
+  const header={version:`${versionMajor}.${versionMinor}`,versionMajor,versionMinor,headerSize,pointDataOffset,pointFormat,pointRecordLength,pointCount,compressed,scale,offset,min,max};
+  header.crs=readLasCrs(buffer,header);
+  return header;
 }
 
 function color8(value){return Math.max(0,Math.min(255,Math.round(value/257)))}
