@@ -1,6 +1,6 @@
 {
   "name": "lazberry-ply",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": true,
   "type": "module",
   "description": "Private, client-side PLY, LAS, and LAZ viewer for the web",
