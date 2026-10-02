@@ -1,0 +1,28 @@
+import assert from 'node:assert/strict';
+import {parsePly} from '../src/ply.js';
+import {packSplats,sortSplatsByDepth,splatCovariance} from '../src/splat.js';
+const near=(actual,expected,epsilon=1e-5)=>assert.ok(Math.abs(actual-expected)<epsilon,`${actual} != ${expected}`);
+const names=['x','y','z','nx','ny','nz','f_dc_0','f_dc_1','f_dc_2','f_rest_0','f_rest_1','opacity','scale_0','scale_1','scale_2','rot_0','rot_1','rot_2','rot_3'];
+const rows=[[0,0,0,0,0,0,0,0,0,9,9,0,Math.log(2),Math.log(1),Math.log(.5),2,0,0,0],[4,2,-2,0,0,0,1.7724538509,-1.7724538509,0,0,0,10,0,0,0,0,0,0,0]];
+const header=`ply\nformat binary_little_endian 1.0\nelement vertex ${rows.length}\n${names.map(name=>`property float ${name}`).join('\n')}\nend_header\n`,headerBytes=new TextEncoder().encode(header),bytes=new Uint8Array(headerBytes.length+rows.length*names.length*4);
+bytes.set(headerBytes);bytes.set(new Uint8Array(new Float32Array(rows.flat()).buffer),headerBytes.length);
+const model=parsePly(bytes.buffer);
+assert.ok(model.splat,'3DGS attributes must produce splat data');assert.equal(model.vertexCount,2);assert.equal(model.triangleCount,0);
+assert.deepEqual([...model.colors],[128,128,128,255,0,128]);
+near(model.splat.opacities[0],.5);near(model.splat.opacities[1],1/(1+Math.exp(-10)));
+[2,1,.5,1,1,1].forEach((value,index)=>near(model.splat.scales[index],value));
+assert.deepEqual([...model.splat.rotations],[1,0,0,0,1,0,0,0]);
+assert.equal(parsePly(new TextEncoder().encode('ply\nformat ascii 1.0\nelement vertex 1\nproperty float x\nproperty float y\nproperty float z\nend_header\n1 2 3\n').buffer).splat,undefined);
+const ascii=parsePly(new TextEncoder().encode(`ply\nformat ascii 1.0\nelement vertex 1\n${names.map(name=>`property float ${name}`).join('\n')}\nend_header\n${rows[1].join(' ')}\n`).buffer);
+assert.deepEqual([...ascii.colors],[255,0,128]);near(ascii.splat.opacities[0],1/(1+Math.exp(-10)));
+// Source axes map to viewer axes (x,z,-y) and scale by 1/radius².
+const cov=splatCovariance([2,1,.5],[1,0,0,0],2);[1,0,0,.0625,0,.25].forEach((value,index)=>near(cov[index],value));
+const rotated=splatCovariance([2,1,1],[Math.SQRT1_2,0,0,Math.SQRT1_2],1);[1,0,0,1,0,4].forEach((value,index)=>near(rotated[index],value));
+const packed=packSplats(new Float32Array([.5,-.25,1,0,0,0]),model.colors,model.splat,2,4096),floats=new Float32Array(packed.data.buffer);
+assert.equal(packed.perRow,1365);assert.equal(packed.width,4095);assert.equal(packed.height,1);
+assert.deepEqual([...floats.subarray(0,3)],[.5,-.25,1]);assert.equal(packed.data[3],(128|128<<8|128<<16|128<<24)>>>0);near(floats[4],1);near(floats[7],.0625);near(floats[9],.25);
+assert.equal(packSplats(new Float32Array(6),model.colors,model.splat,1,3).height,2);
+assert.throws(()=>packSplats(new Float32Array(6),model.colors,model.splat,1,2),/too many splats/);
+const positions=new Float32Array([0,0,-1,0,0,-5,0,0,3,0,0,-2]);
+assert.deepEqual([...sortSplatsByDepth(positions,[0,0,1])],[1,3,0,2]);assert.deepEqual([...sortSplatsByDepth(positions,[0,0,-1])],[2,0,3,1]);assert.deepEqual([...sortSplatsByDepth(new Float32Array(6),[0,0,1])],[0,1]);
+console.log('Gaussian splat tests passed');
