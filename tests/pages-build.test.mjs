@@ -8,6 +8,7 @@ const pageSource = await readFile(new URL('../docs/index.html', import.meta.url)
 const workerAsset = assets.find(name => /^point-worker-.*\.js$/.test(name));
 
 assert.ok(workerAsset, 'GitHub Pages build must emit the point-cloud worker asset');
+assert.ok(assets.some(name => /^splat-sort-worker-.*\.js$/.test(name)), 'GitHub Pages build must emit the Gaussian splat sort worker asset');
 
 const mainAsset = assets.find(name => /^index-.*\.js$/.test(name));
 assert.ok(mainAsset, 'GitHub Pages build must emit the main JavaScript asset');
@@ -19,6 +20,7 @@ assert.match(pageSource,/id="trackball-rotation"/);
 assert.match(pageSource,/id="projection-mode"[^>]+aria-pressed="false"/);
 assert.match(pageSource,/id="show-mesh"[^>]+checked/);
 assert.match(pageSource,/id="show-cloud-points"[^>]+checked/);
+assert.match(pageSource,/id="splat-controls"[^>]*hidden/);
 assert.doesNotMatch(pageSource,/id="show-points"[^>]+checked/);
 assert.doesNotMatch(pageSource,/id="show-edge"[^>]+checked/);
 assert.match(pageSource,/id="mesh-opacity"[^>]+value="100"/);

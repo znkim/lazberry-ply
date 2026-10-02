@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#091018">
   <link rel="icon" href="/lazberry-ply/favicon.svg" type="image/svg+xml">
   <title>Lazberry PLY Viewer</title>
-  <script type="module" crossorigin src="/lazberry-ply/assets/index-DeWkNcfz.js"></script>
+  <script type="module" crossorigin src="/lazberry-ply/assets/index-CuOga2en.js"></script>
   <link rel="stylesheet" crossorigin href="/lazberry-ply/assets/index-BdGxZpqE.css">
 </head>
 <body>
@@ -33,6 +33,10 @@
           <label class="toggle"><input id="show-cloud-points" type="checkbox" checked><span>Points</span></label>
           <label>Point size <output id="point-size-value">2 px</output><input id="point-size" type="range" min="1" max="12" value="2" step="0.5"></label>
           <label>Point limit <output id="point-limit-value">1,000,000</output><input id="point-limit" type="range" min="10000" max="5000000" value="1000000" step="10000"></label>
+        </div>
+        <div id="splat-controls" class="geometry-controls" hidden>
+          <label class="toggle"><input id="show-splats" type="checkbox" checked><span>Gaussian splats</span></label>
+          <label>Splat scale <output id="splat-scale-value">100%</output><input id="splat-scale" type="range" min="10" max="200" value="100" step="5"></label>
         </div>
         <div id="mesh-controls" class="geometry-controls" hidden>
           <label class="toggle"><input id="show-mesh" type="checkbox" checked><span>Mesh faces</span></label>

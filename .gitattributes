@@ -4,3 +4,4 @@
 *.jpg binary
 *.jpeg binary
 *.wasm binary
+test-data/sample-splat.ply binary

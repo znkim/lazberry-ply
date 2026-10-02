@@ -10,4 +10,5 @@ const zUp=centerAndMapZUp(new Float32Array([0,0,0,2,4,6]),[0,0,0],[2,4,6]);[-1/6
 assert.deepEqual(VIEW_ANGLES['-X'],[Math.PI/2,0]);assert.deepEqual(VIEW_ANGLES['+Z'],[0,Math.PI/2]);assert.ok(VIEW_ANGLES.ISO[1]>0);
 assert.deepEqual(VIEW_KEYS,{a:'-X',d:'+X',w:'+Y',s:'-Y',q:'-Z',e:'+Z'});
 assert.equal(formatBBoxDimensions([-6.94178,-2,0],[8.18296,3,1]),'X: 15.1247 (-6.94178 : 8.18296)\nY: 5.00000 (-2.00000 : 3.00000)\nZ: 1.00000 (0.00000 : 1.00000)');
+for(const ending of ['\n','\r\n']){const head=new TextEncoder().encode(`ply\nformat binary_little_endian 1.0\nelement vertex 1\nproperty uchar red\nproperty float x\nproperty float y\nproperty float z\nend_header${ending}`),bytes=new Uint8Array(head.length+13);bytes.set(head);bytes[head.length]=10;new DataView(bytes.buffer).setFloat32(head.length+1,1.5,true);const binary=parsePly(bytes.buffer);assert.equal(binary.colors[0],10,'binary data starting with a newline byte must not be skipped');assert.equal(binary.positions[0],1.5)}
 console.log('PLY parser tests passed');

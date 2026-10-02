@@ -21,6 +21,7 @@ uploaded to a server.
 - LAS 1.0–1.4 point formats 0–10, including common point attributes
 - Local LAZ decompression in a Web Worker using WASM
 - Point-cloud and triangle-mesh rendering
+- 3D Gaussian Splatting PLY rendering with depth-sorted, anisotropic splats
 - Point Eye Dome Lighting with adjustable strength, and normal-based point diagnostics when PLY normals are present
 - Mesh triangle colors, lighting, and normal color diagnostics
 - LAS/LAZ coordinate-system metadata when available
@@ -35,8 +36,14 @@ uploaded to a server.
    to choose one.
 3. The file is parsed locally in your browser. No point-cloud data is uploaded.
 
-PLY files may contain point clouds or triangle meshes. LAS and LAZ files are
-opened as point clouds.
+PLY files may contain point clouds or triangle meshes. PLY files exported by 3D
+Gaussian Splatting training (with `f_dc_*`, `opacity`, `scale_*`, and `rot_*`
+vertex properties) are rendered as Gaussian splats using their base (degree-0)
+color; higher-order spherical harmonics and compressed splat formats are not
+yet supported. LAS and LAZ files are opened as point clouds.
+
+A small synthetic splat for testing is included at `test-data/sample-splat.ply`
+(regenerate it with `node scripts/generate-splat-sample.mjs`).
 
 ## Development
 
