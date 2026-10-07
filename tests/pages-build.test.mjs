@@ -21,6 +21,7 @@ assert.match(pageSource,/id="projection-mode"[^>]+aria-pressed="false"/);
 assert.match(pageSource,/id="show-mesh"[^>]+checked/);
 assert.match(pageSource,/id="show-cloud-points"[^>]+checked/);
 assert.match(pageSource,/id="splat-controls"[^>]*hidden/);
+assert.match(pageSource,/id="splat-resolution"[^>]+value="100"/);
 assert.doesNotMatch(pageSource,/id="show-points"[^>]+checked/);
 assert.doesNotMatch(pageSource,/id="show-edge"[^>]+checked/);
 assert.match(pageSource,/id="mesh-opacity"[^>]+value="100"/);
