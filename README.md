@@ -21,7 +21,7 @@ uploaded to a server.
 - LAS 1.0–1.4 point formats 0–10, including common point attributes
 - Local LAZ decompression in a Web Worker using WASM
 - Point-cloud and triangle-mesh rendering
-- 3D Gaussian Splatting PLY rendering with depth-sorted, anisotropic splats
+- 3D Gaussian Splatting PLY rendering with depth-sorted, anisotropic splats, plus an adjustable splat render resolution for large scenes
 - Point Eye Dome Lighting with adjustable strength, and normal-based point diagnostics when PLY normals are present
 - Mesh triangle colors, lighting, and normal color diagnostics
 - LAS/LAZ coordinate-system metadata when available
