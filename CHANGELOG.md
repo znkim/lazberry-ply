@@ -3,6 +3,15 @@
 All notable changes to Lazberry PLY are documented here. This project follows
 [semantic versioning](https://semver.org/).
 
+## [0.7.1] - 2026-10-07
+
+### Changed
+
+- New logo: a raspberry drawn as a point cloud, a nod to the Lazberry PLY name
+  (raspberry + fly, for LAS and PLY files). It has a transparent background so it
+  reads on both dark and light themes, and its dots are sized to stay legible at
+  small icon sizes.
+
 ## [0.7.0] - 2026-10-07
 
 Faster Gaussian splat rendering. Large splats (1.7M splats / 400 MB tested) were
